@@ -1,0 +1,77 @@
+INITIALIZE NODE APP
+npm init -y
+
+INSTALL REACT
+npm install --save react react-dom
+
+
+INSTALL ESLINT STANDARD REACT
+npm install --save-dev eslint eslint-config-standard eslint-config-standard-react eslint-plugin-promise eslint-plugin-react eslint-plugin-standard
+vi .eslintrc
+-------------------------------------------------------------------------
+{
+  "extends": ["standard", "standard-react"]
+}
+-------------------------------------------------------------------------
+
+
+INSTALL LOCALLY ON MACHINE OF DEVELOPER
+npm install -g eslint eslint-config-standard eslint-config-standard-react eslint-plugin-promise eslint-plugin-react eslint-plugin-standard
+set Global eslint in Atom
+
+
+INSTALL WEBPACK
+npm install --save-dev webpack
+npm install --save-dev  webpack-dev-server
+vi webpack.config.js
+-------------------------------------------------------------------------
+const path = require('path');
+module.exports = {
+  entry: './client/index.js',
+  output: {
+    path: path.resolve('dist'),
+    filename: 'index_bundle.js'
+  },
+  module: {
+    loaders: [
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+    ]
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 3000
+  }
+}
+-------------------------------------------------------------------------
+
+
+
+INSTALL BABEL
+npm install --save-dev babel-loader babel-core babel-preset-es2015 babel-preset-react
+-------------------------------------------------------------------------
+{
+    "presets":[
+        "es2015", "react"
+    ]
+}
+-------------------------------------------------------------------------
+
+INSTALL EXPRESS SERVER
+npm install express --save
+vi serverStart
+-------------------------------------------------------------------------
+var express = require('express')
+var app = express()
+
+app.use(express.static('dist'))
+
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+})
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
+-------------------------------------------------------------------------
